@@ -29,7 +29,7 @@ public class ServidorFlotaSockets {
 		   while (true) {		//bucle infinito, espera para aceptar conexión
 			   
 //			   System.out-println("Espera un conexión.);
-			   MyStreamSocket miSocketDatos = new MyStreamSocket(miSocketConexion.acecpt());
+			   MyStreamSocket miSocketDatos = new MyStreamSocket(miSocketConexion.accept());
 //			   System.out.printls("conexión aceptada");
 			   
 			   //Arranca hilo para manejar la sesión de cliente
