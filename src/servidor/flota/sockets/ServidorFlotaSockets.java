@@ -23,13 +23,13 @@ public class ServidorFlotaSockets {
 		   puertoServidor = Integer.parseInt(args[0]);
 	   try {
 		   //instancia un socket stream para aceptar las conexiones
-		   ServerSocket miSocketConecion = new ServerSocket(puertoServidor);
+		   ServerSocket miSocketConexion = new ServerSocket(puertoServidor);
 //		   System.out.println("ServidorFlotaSockets listo.);
 		   
 		   while (true) {		//bucle infinito, espera para aceptar conexión
 			   
 //			   System.out-println("Espera un conexión.);
-			   MiSocketStream miSocketDatos = new MiSocketStream(miSocketConexion.acecpt());
+			   MyStreamSocket miSocketDatos = new MyStreamSocket(miSocketConexion.acecpt());
 //			   System.out.printls("conexión aceptada");
 			   
 			   //Arranca hilo para manejar la sesión de cliente
