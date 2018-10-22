@@ -15,6 +15,8 @@ public class AuxiliarClienteFlota {
    private MyStreamSocket mySocket;
    private InetAddress serverHost;
    private int serverPort;
+   
+   private final int FIN = 0, NUEVAPARTIDA = 1, PRUEBACASILLA = 2, GETBARCO = 3, GETSOLUCION = 4;
 
 	/**
 	 * Constructor del objeto auxiliar del cliente
@@ -53,9 +55,14 @@ public class AuxiliarClienteFlota {
     * @throws IOException
     */
    public void nuevaPartida(int nf, int nc, int nb)  throws IOException {
-	   
 	   // Por implementar
-	   
+	   try{
+		   String stream = NUEVAPARTIDA + "#"+nf+"#"+nc+"#"+nb;
+		   mySocket.sendMessage(stream);
+		   System.out.println(stream);
+	   } catch(IOException e){
+		   e.printStackTrace();
+	   }
    } // end nuevaPartida
 
    /**
@@ -68,10 +75,10 @@ public class AuxiliarClienteFlota {
     * @throws IOException
     */
    public int pruebaCasilla(int f, int c) throws IOException {
-	   int res = 0;
 	   // Por implementar
+	   int res = 0;
 	   try{
-		   String stream = "2#"+f+"#"+c;
+		   String stream = PRUEBACASILLA + "#"+f+"#"+c;
 		   mySocket.sendMessage(stream);
 		   try{
 			   res = Integer.parseInt(mySocket.receiveMessage());

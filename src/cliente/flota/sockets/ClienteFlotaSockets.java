@@ -52,6 +52,7 @@ public class ClienteFlotaSockets {
 		// Instancia la primera partida
 		try {
 			aux = new AuxiliarClienteFlota("localhost", "8080");
+			aux.nuevaPartida(NUMFILAS, NUMCOLUMNAS, NUMBARCOS);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
