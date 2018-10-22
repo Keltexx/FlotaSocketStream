@@ -4,11 +4,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 
 import javax.swing.*;
-
-import partida.flota.sockets.Partida;
-
 
 
 public class ClienteFlotaSockets {
@@ -19,7 +18,7 @@ public class ClienteFlotaSockets {
 	
 	// Modifica todas las llamadas al objeto de la clase Partida
 	// por llamadas al objeto de la clase AuxiliarClienteFlota.
-	// Los métodos a llamar tendrán la misma signatura.
+	// Los metodos a llamar tendran la misma signatura.
 	
 	
 
@@ -32,7 +31,7 @@ public class ClienteFlotaSockets {
 	public static final int NUMFILAS=8, NUMCOLUMNAS=8, NUMBARCOS=6;
 
 	private GuiTablero guiTablero = null;			// El juego se encarga de crear y modificar la interfaz gráfica
-	private Partida partida = null;                 // Objeto con los datos de la partida en juego
+	private AuxiliarClienteFlota aux = null;                 // Objeto con los datos de la partida en juego
 	
 	/** Atributos de la partida guardados en el juego para simplificar su implementación */
 	private int quedan = NUMBARCOS, disparos = 0;
@@ -51,7 +50,11 @@ public class ClienteFlotaSockets {
 	 */
 	private void ejecuta() {
 		// Instancia la primera partida
-		partida = new Partida(NUMFILAS, NUMCOLUMNAS, NUMBARCOS);
+		try {
+			aux = new AuxiliarClienteFlota("localhost", "8080");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -182,11 +185,16 @@ public class ClienteFlotaSockets {
 			quedan=0;
 			for (int i = 0; i < numFilas; i++) {
 				for (int j = 0; j < numColumnas; j++){
-					int toque = partida.pruebaCasilla(i, j);
-					if(toque==-1) {
-						guiTablero.pintaBoton(guiTablero.buttons[i][j],Color.cyan);
-					}else {
-						guiTablero.pintaBoton(guiTablero.buttons[i][j],Color.magenta);
+					int toque;
+					try {
+						toque = aux.pruebaCasilla(i, j);
+						if(toque==-1) {
+							guiTablero.pintaBoton(guiTablero.buttons[i][j],Color.cyan);
+						}else {
+							guiTablero.pintaBoton(guiTablero.buttons[i][j],Color.magenta);
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
 				}
 			}
@@ -276,9 +284,13 @@ public class ClienteFlotaSockets {
 				break;
 			case "Nueva partida":
 				guiTablero.limpiaTablero();
-				partida = new Partida(NUMFILAS, NUMCOLUMNAS, NUMBARCOS);
-				quedan = NUMBARCOS; disparos = 0;
-				guiTablero.cambiaEstado("Intentos: " + disparos + "    Barcos restantes: " + quedan);
+				try {
+					aux = new AuxiliarClienteFlota("localhost","8080");
+					quedan = NUMBARCOS; disparos = 0;
+					guiTablero.cambiaEstado("Intentos: " + disparos + "    Barcos restantes: " + quedan);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 				break;				
 			default:
 				break;
@@ -304,8 +316,10 @@ public class ClienteFlotaSockets {
 			if(quedan!=0){
 				if(!guiTablero.buttons[i][j].getBackground().equals(Color.yellow) &&
 						!guiTablero.buttons[i][j].getBackground().equals(Color.red)){
-					int toque = partida.pruebaCasilla(i,j);
-					switch(toque){
+					int toque;
+					try {
+						toque = aux.pruebaCasilla(i,j);
+						switch(toque){
 						case -1:	//AGUA
 							guiTablero.pintaBoton(guiTablero.buttons[i][j],Color.cyan);
 							break;
@@ -314,11 +328,14 @@ public class ClienteFlotaSockets {
 							break;
 						default:	//HUNDIDO
 							quedan--;
-							guiTablero.pintaBarcoHundido(partida.getBarco(toque));
+							guiTablero.pintaBarcoHundido(aux.getBarco(toque));
 							break;
-					} //end switch
+						} //end switch
+						disparos++;
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
-				disparos++;
 				if(quedan==0)
 					guiTablero.cambiaEstado("GAME OVER en " + disparos + " disparos");
 

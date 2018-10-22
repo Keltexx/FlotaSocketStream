@@ -26,24 +26,24 @@ public class ServidorFlotaSockets {
 		   ServerSocket miSocketConexion = new ServerSocket(puertoServidor);
 //		   System.out.println("ServidorFlotaSockets listo.);
 		   
-		   while (true) {		//bucle infinito, espera para aceptar conexión
+		   while (true) {		//bucle infinito, espera para aceptar conexion
 			   
-//			   System.out-println("Espera un conexión.);
+			   System.out.println("Espera una conexion.");
 			   MyStreamSocket miSocketDatos = new MyStreamSocket(miSocketConexion.accept());
-//			   System.out.printls("conexión aceptada");
+			   System.out.println("conexion aceptada");
 			   
 			   //Arranca hilo para manejar la sesión de cliente
 			   Thread elHilo = new Thread(new HiloServidorFlota(miSocketDatos));
 			   elHilo.start();
-			   //continúa con el siguiente cliente
+			   //continua con el siguiente cliente
 		   } // fin del while infinito
 	   } //fin del try
 	   catch (Exception ex) {
 		   ex.printStackTrace();
 	   } //fin del catch
 	   
-	  // Acepta conexiones vía socket de distintos clientes.
-	  // Por cada conexión establecida lanza una hebra de la clase HiloServidorFlota.
+	  // Acepta conexiones via socket de distintos clientes.
+	  // Por cada conexion establecida lanza una hebra de la clase HiloServidorFlota.
 	   
 
 	  // Revisad el apartado 5.5 del libro de Liu

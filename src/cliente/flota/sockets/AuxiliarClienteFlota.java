@@ -27,8 +27,10 @@ public class AuxiliarClienteFlota {
                      String portNum) throws SocketException,
                      UnknownHostException, IOException {
 	   
-  	   // Por implementar	   
-	   
+  	   // Por implementar
+	   serverPort = Integer.parseInt(portNum);
+	   serverHost = InetAddress.getByName(hostName);
+	   this.mySocket = new MyStreamSocket(serverHost, serverPort);
    } // end constructor
    
    /**
@@ -73,7 +75,7 @@ public class AuxiliarClienteFlota {
     } // end getCasilla
    
    /**
-    * Usa el socket para enviar al servidor una petición de los datos de un barco
+    * Usa el socket para enviar al servidor una peticion de los datos de un barco
     * con el formato: "3#idBarco"
     * @param idBarco	identidad del Barco
     * @return			resultado devuelto por la operación correspondiente del objeto Partida
