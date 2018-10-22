@@ -68,9 +68,21 @@ public class AuxiliarClienteFlota {
     * @throws IOException
     */
    public int pruebaCasilla(int f, int c) throws IOException {
-	   
+	   int res = 0;
 	   // Por implementar
-	   return 0; // cambiar por el retorno correcto
+	   try{
+		   String stream = "2#"+f+"#"+c;
+		   mySocket.sendMessage(stream);
+		   try{
+			   res = Integer.parseInt(mySocket.receiveMessage());
+		   }catch (NumberFormatException ex){
+			   ex.printStackTrace();
+		   }
+	   }catch (IOException e){
+		   e.printStackTrace();
+	   }
+	   
+	   return res; // cambiar por el retorno correcto
 	   
     } // end getCasilla
    

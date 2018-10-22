@@ -99,7 +99,7 @@ public class ClienteFlotaSockets {
 		/**
 		 * Anyade el menu de opciones del juego y le asocia un escuchador
 		 */
-		private void anyadeMenu() {	//TODO
+		private void anyadeMenu() {
 			//Creacion de opciones del menu
             JMenuBar menu = new JMenuBar();	
             JMenu opciones = new JMenu("Opciones");
@@ -127,7 +127,7 @@ public class ClienteFlotaSockets {
 		 * @param nf	numero de filas
 		 * @param nc	numero de columnas
 		 */
-		private void anyadeGrid(int nf, int nc) {	//TODO
+		private void anyadeGrid(int nf, int nc) {
 			JPanel cuadr = new JPanel();
 			GridLayout experimentLayout = new GridLayout(nf+1,nc+2);
 			ButtonListener escuchador = new ButtonListener();
@@ -181,7 +181,7 @@ public class ClienteFlotaSockets {
 		/**
 		 * Muestra la solucion de la partida y marca la partida como finalizada
 		 */
-		public void muestraSolucion() {	//TODO
+		public void muestraSolucion() {
 			quedan=0;
 			for (int i = 0; i < numFilas; i++) {
 				for (int j = 0; j < numColumnas; j++){
@@ -208,7 +208,7 @@ public class ClienteFlotaSockets {
 		 * @param cadenaBarco	cadena con los datos del barco codifificados como
 		 *                      "filaInicial#columnaInicial#orientacion#tamanyo"
 		 */
-		public void pintaBarcoHundido(String cadenaBarco) {	//TODO
+		public void pintaBarcoHundido(String cadenaBarco) {
 			String[] parts = cadenaBarco.split("#");
 			int filaInicial = Integer.parseInt(parts[0]);
 			int columnaInicial = Integer.parseInt(parts[1]);     
@@ -273,7 +273,7 @@ public class ClienteFlotaSockets {
 	private class MenuListener implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {	//TODO
+		public void actionPerformed(ActionEvent e) {
 			switch(e.getActionCommand()){
 			case "Salir": 
 				guiTablero.liberaRecursos();
@@ -311,7 +311,7 @@ public class ClienteFlotaSockets {
 	 */
 	private class ButtonListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent e) {	//TODO
+		public void actionPerformed(ActionEvent e) {
 			int i=(int)((JButton)e.getSource()).getClientProperty("fila"), j=(int)((JButton)e.getSource()).getClientProperty("columna");
 			if(quedan!=0){
 				if(!guiTablero.buttons[i][j].getBackground().equals(Color.yellow) &&
