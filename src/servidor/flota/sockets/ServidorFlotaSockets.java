@@ -16,7 +16,7 @@ import comun.flota.sockets.MyStreamSocket;
 public class ServidorFlotaSockets {
    
    public static void main(String[] args) {
-	   int puertoServidor = 7; //Puerto por defecto
+	   int puertoServidor = 8080; //Puerto por defecto
 	   String mensaje;
 	   
 	   if(args.length == 1)
