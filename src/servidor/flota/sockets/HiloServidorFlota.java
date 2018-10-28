@@ -85,7 +85,6 @@ class HiloServidorFlota implements Runnable {
 					for (int i = 0; i < tam; i++) {
 						myDataSocket.sendMessage(sol[i]);
 					}
-					done=true;
 					break;
 				}
 				} // fin switch
