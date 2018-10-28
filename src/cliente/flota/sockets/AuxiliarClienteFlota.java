@@ -45,6 +45,7 @@ public class AuxiliarClienteFlota {
 		// Por implementar
 		String endMessage = ""+FIN;
 		mySocket.sendMessage(endMessage);
+		mySocket.close();
 
 	} // end fin
 
