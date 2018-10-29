@@ -286,8 +286,9 @@ public class ClienteFlotaSockets {
 			case "Nueva partida":
 				guiTablero.limpiaTablero();
 				try {
-					aux = new AuxiliarClienteFlota("localhost","8080");
-					quedan = NUMBARCOS; disparos = 0;
+					aux.nuevaPartida(NUMFILAS, NUMCOLUMNAS, NUMBARCOS);
+					quedan = NUMBARCOS; 
+					disparos = 0;
 					guiTablero.cambiaEstado("Intentos: " + disparos + "    Barcos restantes: " + quedan);
 				} catch (Exception ex) {
 					ex.printStackTrace();
