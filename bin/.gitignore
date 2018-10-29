@@ -2,3 +2,7 @@
 .classpath
 .project
 .settings
+/cliente/
+/comun/
+/partida/
+/servidor/
